@@ -30,61 +30,103 @@
 }
 </script>
 <style>
-  :root { --fg: #1A1B21; --muted: #5B5D72; --bg: #F8F8FC; --card: #FFFFFF; --accent: #4A5BDC; --accent-ink: #FFFFFF; }
+  :root {
+    --fg: #1A1B21; --muted: #5B5D72; --bg: #F8F8FC; --card: #FFFFFF; --line: #E3E3EE;
+    --accent: #4A5BDC; --accent-ink: #FFFFFF; --shadow: 0 24px 60px rgba(26, 27, 33, .16);
+  }
   @media (prefers-color-scheme: dark) {
-    :root { --fg: #E3E1E9; --muted: #A9A9BE; --bg: #121318; --card: #1E1F25; --accent: #BBC3FF; --accent-ink: #1B2A93; }
+    :root {
+      --fg: #E3E1E9; --muted: #A9A9BE; --bg: #121318; --card: #1E1F25; --line: #2C2D35;
+      --accent: #BBC3FF; --accent-ink: #1B2A93; --shadow: 0 24px 60px rgba(0, 0, 0, .45);
+    }
   }
   * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  /* The width/height attributes reserve space; height:auto keeps the real aspect ratio when CSS resizes the width. */
+  img { display: block; max-width: 100%; height: auto; }
   a { color: var(--accent); }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
   header { padding: 20px 0; display: flex; align-items: center; gap: 12px; }
   header img { width: 40px; height: 40px; border-radius: 10px; }
-  header strong { font-size: 20px; }
-  .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; padding: 32px 0 56px; }
-  h1 { font-size: clamp(36px, 6vw, 60px); line-height: 1.05; letter-spacing: -1.5px; margin: 0 0 16px; }
-  .lead { font-size: 20px; color: var(--muted); max-width: 34em; }
-  .cta { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-ink); padding: 14px 24px; border-radius: 999px; font-weight: 700; text-decoration: none; }
-  .note { margin-top: 10px; font-size: 14px; color: var(--muted); }
-  .hero img { width: 100%; max-width: 380px; justify-self: center; border-radius: 28px; box-shadow: 0 20px 60px rgba(0,0,0,.18); }
-  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; padding-bottom: 56px; }
-  .card { background: var(--card); border-radius: 20px; padding: 22px; }
-  .card h2 { font-size: 19px; margin: 0 0 6px; }
-  .card p { margin: 0; color: var(--muted); }
-  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; padding-bottom: 64px; }
-  .shots img { width: 100%; border-radius: 20px; }
-  footer { padding: 32px 0 48px; color: var(--muted); font-size: 15px; }
-  @media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }
+  header strong { font-size: 20px; flex: 1; }
+  header a { font-size: 15px; text-decoration: none; color: var(--muted); }
+  header a:hover { color: var(--fg); }
+
+  .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 48px; align-items: center; padding: 24px 0 72px; }
+  h1 { font-size: clamp(38px, 5.6vw, 60px); line-height: 1.04; letter-spacing: -.03em; margin: 0 0 18px; text-wrap: balance; }
+  .lead { font-size: clamp(18px, 2vw, 20px); color: var(--muted); max-width: 32em; margin: 0; }
+  .cta { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; background: var(--accent); color: var(--accent-ink); padding: 15px 26px; border-radius: 999px; font-weight: 700; text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; }
+  .cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 35%, transparent); }
+  .cta svg { width: 20px; height: 20px; fill: currentColor; }
+  .note { margin: 12px 0 0; font-size: 14px; color: var(--muted); }
+  .phone { width: 100%; max-width: 340px; justify-self: center; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 28px; box-shadow: var(--shadow); }
+
+  .section-title { font-size: clamp(26px, 3.4vw, 34px); letter-spacing: -.02em; line-height: 1.15; margin: 0 0 24px; }
+  .features { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding-bottom: 72px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 22px 22px 24px; }
+  .card h3 { display: flex; align-items: center; gap: 10px; font-size: 18px; line-height: 1.3; margin: 0 0 8px; }
+  .card h3 span { font-size: 22px; }
+  .card p { margin: 0; color: var(--muted); font-size: 16px; }
+
+  .shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; padding-bottom: 72px; }
+  .shots img { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 22px; box-shadow: var(--shadow); }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 48px; color: var(--muted); font-size: 15px; }
+
+  @media (max-width: 900px) {
+    .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 36px; padding-bottom: 56px; text-align: center; }
+    .lead { margin: 0 auto; }
+    .phone { max-width: 280px; }
+    /* Screenshots become a swipeable row instead of three tiny columns. */
+    .shots { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 0 20px 56px; scrollbar-width: none; }
+    .shots::-webkit-scrollbar { display: none; }
+    .shots img { flex: 0 0 68%; scroll-snap-align: center; }
+  }
+  @media (max-width: 560px) {
+    .features { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { .cta { transition: none; } }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header><img src="assets/icon.png" alt=""><strong>Tickround</strong></header>
+  <header><img src="assets/icon.png" alt="" width="40" height="40"><strong>Tickround</strong><a href="privacy.html">Privacy</a></header>
 
+  <main>
   <section class="hero">
     <div>
       <h1>Checklists that reset themselves.</h1>
       <p class="lead">Make a list once, use it forever. Morning routines that clear every day, packing lists for every trip — and a widget that lets you tick things off right from your home screen.</p>
-      <a class="cta" href="https://play.google.com/store/apps/details?id=app.tickround">Get it on Google Play</a>
+      <a class="cta" href="https://play.google.com/store/apps/details?id=app.tickround">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 2.6c-.3.3-.4.7-.4 1.2v16.4c0 .5.1.9.4 1.2l9.3-9.4-9.3-9.4zm10.5 10.6 2.6 2.6-11.1 6.3 8.5-8.9zm3.8-4.6 3 1.7c.9.5.9 1.8 0 2.3l-3 1.7-2.9-2.9 2.9-2.8zM6.2 1.9l11.1 6.3-2.6 2.6-8.5-8.9z"/></svg>
+        Get it on Google Play
+      </a>
       <p class="note">Free · No account · No ads · Your lists stay on your phone</p>
     </div>
-    <img src="assets/phone-02-widget.png" alt="Tickround checklist widget on an Android home screen" width="1080" height="1920">
+    <img class="phone" src="assets/phone-02-widget.webp" alt="Tickround checklist widget on an Android home screen" width="720" height="1280" fetchpriority="high">
   </section>
 
+  <h2 class="section-title">Made for lists you use again and again</h2>
   <section class="features">
-    <div class="card"><h2>🔁 Resets on schedule</h2><p>Daily, weekly or monthly at the time you choose, with streaks for every routine you keep.</p></div>
-    <div class="card"><h2>📱 Interactive widgets</h2><p>Tick items off, add new ones and see progress without opening the app.</p></div>
-    <div class="card"><h2>⚡ Built for speed</h2><p>Enter keeps the keyboard up, and pasting a list adds every line. Share any text to make a checklist.</p></div>
-    <div class="card"><h2>🧳 Sections & templates</h2><p>Organise packing lists by section, or start from ten ready-made templates.</p></div>
-    <div class="card"><h2>🔒 Private by design</h2><p>No sign-up and no tracking. The Android app doesn't even ask for internet access.</p></div>
-    <div class="card"><h2>🎨 Light, dark & Material You</h2><p>Looks at home on your phone, and celebrates when you finish a list. 🎉</p></div>
+    <div class="card"><h3><span aria-hidden="true">🔁</span>Resets on schedule</h3><p>Daily, weekly or monthly at the time you choose, with streaks for every routine you keep.</p></div>
+    <div class="card"><h3><span aria-hidden="true">📱</span>Interactive widgets</h3><p>Tick items off, add new ones and see progress without opening the app.</p></div>
+    <div class="card"><h3><span aria-hidden="true">⚡</span>Built for speed</h3><p>Enter keeps the keyboard up, and pasting a list adds every line. Share any text to make a checklist.</p></div>
+    <div class="card"><h3><span aria-hidden="true">🧳</span>Sections &amp; templates</h3><p>Organise packing lists by section, or start from ten ready-made templates.</p></div>
+    <div class="card"><h3><span aria-hidden="true">🔒</span>Private by design</h3><p>No sign-up and no tracking. The Android app doesn't even ask for internet access.</p></div>
+    <div class="card"><h3><span aria-hidden="true">🎨</span>Light, dark &amp; Material You</h3><p>Looks at home on your phone, and celebrates when you finish a list. 🎉</p></div>
   </section>
 
   <section class="shots" aria-label="Screenshots">
-    <img src="assets/phone-01-home.png" alt="All your checklists with progress and streaks" loading="lazy" width="1080" height="1920">
-    <img src="assets/phone-03-reset.png" alt="Weekly reset schedule settings" loading="lazy" width="1080" height="1920">
-    <img src="assets/phone-05-done.png" alt="A finished checklist with a streak" loading="lazy" width="1080" height="1920">
+    <img src="assets/phone-01-home.webp" alt="All your checklists with progress and streaks" loading="lazy" width="720" height="1280">
+    <img src="assets/phone-03-reset.webp" alt="Weekly reset schedule settings" loading="lazy" width="720" height="1280">
+    <img src="assets/phone-05-done.webp" alt="A finished checklist with a streak" loading="lazy" width="720" height="1280">
   </section>
+  </main>
 
   <footer>
     © 2026 Tickround · <a href="privacy.html">Privacy policy</a> · <a href="mailto:punitcode18@gmail.com">Contact</a>
