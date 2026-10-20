@@ -45,20 +45,21 @@
   body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
   /* The width/height attributes reserve space; height:auto keeps the real aspect ratio when CSS resizes the width. */
   img { display: block; max-width: 100%; height: auto; }
-  a { color: var(--accent); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
 
   header { padding: 20px 0; display: flex; align-items: center; gap: 12px; }
   header img { width: 40px; height: 40px; border-radius: 10px; }
   header strong { font-size: 20px; flex: 1; }
   header a { font-size: 15px; text-decoration: none; color: var(--muted); }
-  header a:hover { color: var(--fg); }
+  header a:hover { color: var(--fg); text-decoration: none; }
 
   .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 48px; align-items: center; padding: 24px 0 72px; }
   h1 { font-size: clamp(38px, 5.6vw, 60px); line-height: 1.04; letter-spacing: -.03em; margin: 0 0 18px; text-wrap: balance; }
   .lead { font-size: clamp(18px, 2vw, 20px); color: var(--muted); max-width: 32em; margin: 0; }
   .cta { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; background: var(--accent); color: var(--accent-ink); padding: 15px 26px; border-radius: 999px; font-weight: 700; text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; }
-  .cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 35%, transparent); }
+  .cta:hover { text-decoration: none; transform: translateY(-1px); box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 35%, transparent); }
   .cta svg { width: 20px; height: 20px; fill: currentColor; }
   .note { margin: 12px 0 0; font-size: 14px; color: var(--muted); }
   .phone { width: 100%; max-width: 340px; justify-self: center; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 28px; box-shadow: var(--shadow); }
